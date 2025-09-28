@@ -1,0 +1,38 @@
+# Seal Key Server Configuration for SuiKnow
+# Open Mode Configuration
+
+# Server mode: Open or Permissioned
+server_mode: !Open
+
+# Network configuration
+network: !Testnet
+# Custom RPC endpoint (optional)
+# node_url: "https://fullnode.testnet.sui.io:443"
+
+# Key server object ID (will be set after registration)
+key_server_object_id: ""
+
+# CORS configuration
+cors:
+  allowed_origins: ["*"]
+  allowed_methods: ["GET", "POST", "OPTIONS"]
+  allowed_headers: ["Request-Id", "Client-Sdk-Type", "Client-Sdk-Version"]
+  exposed_headers: ["x-keyserver-version"]
+
+# Server settings
+server:
+  host: "0.0.0.0"
+  port: 2024
+  metrics_port: 9184
+
+# Logging configuration
+logging:
+  level: "info"
+  format: "json"
+
+# Health check settings
+health_check:
+  enabled: true
+  interval_seconds: 30
+
+

@@ -1,0 +1,58 @@
+{
+  "name": "sui-kahoot-quiz",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "A Sui-based Kahoot-style quiz dApp with SBT rewards",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "move:build": "sui move build",
+    "move:test": "sui move test",
+    "move:publish": "sui move publish",
+    "deploy:vercel": "vercel --prod",
+    "deploy:github": "gh-pages -d dist",
+    "deploy:walrus": "echo 'Walrus deployment requires site-builder tool'"
+  },
+  "dependencies": {
+    "@mysten/dapp-kit": "0.16.4",
+    "@mysten/enoki": "^0.12.1",
+    "@mysten/seal": "^0.8.0",
+    "@mysten/sui": "^1.38.0",
+    "@mysten/walrus": "^0.7.0",
+    "@mysten/zklogin": "^0.8.1",
+    "@react-oauth/google": "^0.12.2",
+    "@tanstack/react-query": "^5.71.3",
+    "autoprefixer": "^10.4.14",
+    "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
+    "express": "^5.1.0",
+    "lucide-react": "^0.263.1",
+    "postcss": "^8.4.24",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.8.1",
+    "tailwindcss": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.5"
+  },
+  "keywords": [
+    "sui",
+    "blockchain",
+    "quiz",
+    "kahoot",
+    "dapp",
+    "sbt",
+    "zklogin"
+  ],
+  "author": "Sui Kahoot Team",
+  "license": "MIT"
+}

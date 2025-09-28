@@ -1,0 +1,13 @@
+# Walrus Sites Configuration
+network: mainnet
+walrus_rpc: https://mainnet.wal.app
+sui_rpc: https://fullnode.mainnet.sui.io:443
+
+# Site configuration
+site_name: "sui-kahoot"
+description: "Decentralized Quiz Platform on Sui Blockchain"
+epochs: 10  # 10 epochs = ~140 days on mainnet
+
+# Deployment settings
+auto_update: true
+preserve_assets: true

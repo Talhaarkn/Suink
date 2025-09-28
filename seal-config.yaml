@@ -1,0 +1,47 @@
+# Seal Protocol Key Server Configuration
+# This configuration file is used to set up the Seal key server for SuiKnow
+
+# Server mode: Open or Permissioned
+server_mode: !Open
+
+# Network configuration
+network: !Testnet
+# For custom RPC endpoints, uncomment and set:
+# node_url: "https://your-custom-rpc.example.com"
+
+# Key server object ID (will be set after registration)
+# key_server_object_id: "0x..."
+
+# Client configurations (for Permissioned mode)
+# client_configs:
+#   - name: "sui-know-client"
+#     client_master_key: !Derived
+#       derivation_index: 0
+#     key_server_object_id: "0x..."
+#     package_ids:
+#       - "0x923a088b66b59b790499d37305989d03b8fcf8c38ea72bc7ae9da0bb7c581afb"
+
+# Server settings
+server:
+  host: "0.0.0.0"
+  port: 2024
+  health_check_port: 9184
+
+# Logging configuration
+logging:
+  level: "info"
+  format: "json"
+
+# Metrics configuration
+metrics:
+  enabled: true
+  port: 9184
+
+# CORS configuration for browser access
+cors:
+  allowed_origins: ["*"]
+  allowed_methods: ["GET", "POST", "OPTIONS"]
+  allowed_headers: ["Request-Id", "Client-Sdk-Type", "Client-Sdk-Version"]
+  exposed_headers: ["x-keyserver-version"]
+
+
