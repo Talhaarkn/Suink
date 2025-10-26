@@ -1,0 +1,22 @@
+{
+  "name": "suink-backends",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Backend services for SuiNK - Walrus proxy and Enoki sponsorship",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node walrus-proxy-server.js",
+    "start:enoki": "node enoki-backend-server.js",
+    "start:walrus": "node walrus-proxy-server.js"
+  },
+  "dependencies": {
+    "@mysten/enoki": "^0.12.1",
+    "@mysten/sui": "^1.43.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "multer": "^1.4.5-lts.1"
+  }
+}

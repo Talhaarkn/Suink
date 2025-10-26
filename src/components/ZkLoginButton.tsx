@@ -22,6 +22,7 @@ export function ZkLoginButton({ onSuccess, onError }: ZkLoginButtonProps) {
   // Call onSuccess when account changes
   React.useEffect(() => {
     if (currentAccount && onSuccess) {
+      console.log('zkLogin success! Address:', currentAccount.address);
       onSuccess(currentAccount.address);
     }
   }, [currentAccount, onSuccess]);
@@ -32,9 +33,18 @@ export function ZkLoginButton({ onSuccess, onError }: ZkLoginButtonProps) {
         throw new Error('Google wallet not available');
       }
       
-      await connectWallet.mutateAsync({ wallet: googleWallet });
+      // Use redirect flow instead of popup to avoid popup blockers
+      await connectWallet.mutateAsync({ 
+        wallet: googleWallet,
+      });
     } catch (error) {
       console.error('Google connect error:', error);
+      
+      // If popup is blocked, show user-friendly message
+      if (error instanceof Error && error.message.includes('Popup closed')) {
+        alert('Popup was blocked or closed. Please allow popups for this site and try again.');
+      }
+      
       onError?.(error as Error);
     }
   };

@@ -1,12 +1,13 @@
 import { SuiClient } from '@mysten/sui/client'
-import { TransactionBlock } from '@mysten/sui/transactions'
+import { Transaction } from '@mysten/sui/transactions'
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519'
+import { useState } from 'react'
 
 // Sponsored transaction configuration
 export const SPONSORED_CONFIG = {
   // Enoki API configuration
-  ENOKI_API_URL: process.env.REACT_APP_ENOKI_API_URL || 'https://api.enoki.mystenlabs.com',
-  ENOKI_API_KEY: process.env.REACT_APP_ENOKI_API_KEY || 'your-enoki-api-key',
+  ENOKI_API_URL: import.meta.env.VITE_ENOKI_API_URL || 'https://api.enoki.mystenlabs.com',
+  ENOKI_API_KEY: import.meta.env.VITE_ENOKI_PUBLIC_KEY || 'your-enoki-api-key',
   
   // Sponsored transaction settings
   MAX_GAS_BUDGET: 10000000, // 0.01 SUI
@@ -30,7 +31,7 @@ export class SponsoredTransactionService {
 
   // Create a sponsored transaction
   async createSponsoredTransaction(
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     userAddress: string,
     gasBudget?: number
   ): Promise<{
@@ -86,7 +87,7 @@ export class SponsoredTransactionService {
   }> {
     try {
       // Submit the sponsored transaction
-      const response = await this.client.executeTransactionBlock({
+      const response = await this.client.executeTransaction({
         transactionBlock: sponsoredTxBytes,
         signature: userSignature,
         options: {
@@ -109,7 +110,7 @@ export class SponsoredTransactionService {
   // Get sponsored transaction status
   async getSponsoredTransactionStatus(txDigest: string) {
     try {
-      const response = await this.client.getTransactionBlock({
+      const response = await this.client.getTransaction({
         digest: txDigest,
         options: {
           showEffects: true,
@@ -131,9 +132,9 @@ export class SponsoredTransactionService {
   }
 
   // Estimate gas for a transaction
-  async estimateGas(transactionBlock: TransactionBlock, userAddress: string) {
+  async estimateGas(transactionBlock: Transaction, userAddress: string) {
     try {
-      const response = await this.client.dryRunTransactionBlock({
+      const response = await this.client.dryRunTransaction({
         transactionBlock: await transactionBlock.build({ client: this.client }),
         sender: userAddress,
       })
@@ -166,7 +167,7 @@ export function useSponsoredTransactions() {
   const [error, setError] = useState<string | null>(null)
 
   const executeSponsoredTransaction = async (
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     userAddress: string,
     userSignature: string,
     gasBudget?: number
@@ -198,7 +199,7 @@ export function useSponsoredTransactions() {
     }
   }
 
-  const estimateGas = async (transactionBlock: TransactionBlock, userAddress: string) => {
+  const estimateGas = async (transactionBlock: Transaction, userAddress: string) => {
     try {
       return await sponsoredTxService.estimateGas(transactionBlock, userAddress)
     } catch (err) {
@@ -226,7 +227,3 @@ export function useSponsoredTransactions() {
     getTransactionStatus,
   }
 }
-
-// Import useState for the hook
-import { useState } from 'react'
-

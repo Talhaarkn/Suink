@@ -2,16 +2,12 @@ import { getFullnodeUrl } from "@mysten/sui/client";
 import { createNetworkConfig } from "@mysten/dapp-kit";
 
 /**
- * Package ID for Sui Kahoot - will be set after deployment
+ * Package ID for SuiLinkTree - Deployed to Sui Testnet
  * 
- * To get the package ID, run:
- * ```bash
- * sui move publish --gas-budget 100000000
- * ```
- * 
- * Then copy the PackageID from the output and replace the value below.
+ * Package ID: 0xa3e899191de3c7cfb334ec890d97f5c1fec7a189f4b525824c7f30fc9cdfebec
+ * ProfileRegistry ID: 0xea275751172d6e3e99dd33f8891c0ded3091306056d158f16435657dec881275
  */
-const PACKAGE_ID = "0x923a088b66b59b790499d37305989d03b8fcf8c38ea72bc7ae9da0bb7c581afb";
+const PACKAGE_ID = "0xa3e899191de3c7cfb334ec890d97f5c1fec7a189f4b525824c7f30fc9cdfebec";
 
 const { networkConfig, useNetworkVariable, useNetworkVariables } =
   createNetworkConfig({

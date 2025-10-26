@@ -1,13 +1,17 @@
-// Constants for SuiKnow
+// Constants for SuiNK
 
-// App configuration
-export const APP_CONFIG = {
-  NAME: 'SuiKnow',
-  DESCRIPTION: 'A decentralized quiz platform built on Sui blockchain',
+// Walrus Sites utilities
+export * from './walrusLinks'
+
+// Application Info
+export const APP_INFO = {
   VERSION: '1.0.0',
-  AUTHOR: 'SuiKnow Team',
-  REPOSITORY: 'https://github.com/suiknow/suiknow',
-  WEBSITE: 'https://suiknow.vercel.app',
+  NAME: 'SuiNK',
+  DESCRIPTION: 'Decentralized LinkTree on Sui blockchain',
+  TAGLINE: 'Your links, your way, on-chain',
+  AUTHOR: 'SuiNK Team',
+  REPOSITORY: 'https://github.com/suink/suink',
+  WEBSITE: 'https://suink.app',
 }
 
 // Network configuration
@@ -243,5 +247,30 @@ export const EXTERNAL_LINKS = {
   ENOKI_DOCS: 'https://docs.enoki.mystenlabs.com',
   SEAL_DOCS: 'https://github.com/MystenLabs/seal/tree/main/docs',
   WALRUS_DOCS: 'https://docs.wal.app',
+} as const
+
+// Walrus Sites configuration
+export const WALRUS_SITES = {
+  // Current site's Walrus object ID (testnet)
+  SITE_OBJECT_ID: '0x5cff825ae30471011b5f5e812fcf356a1c3156d7765395e2f06470df67ae2925',
+  
+  // Portal configuration
+  PORTALS: {
+    MAINNET: 'https://wal.app',
+    TESTNET_LOCAL: 'http://localhost:3000',
+  },
+  
+  // Link formats
+  LINK_FORMATS: {
+    BLOB_ID: 'https://blobid.walrus/{blob-id}',
+    SUINS: 'https://{suins-name}.suiobj/{path}',
+    OBJECT_ID: 'https://{object-id}.suiobj/{path}',
+  },
+  
+  // Aggregator URLs (legacy - for fallback)
+  AGGREGATORS: {
+    TESTNET: 'https://aggregator.walrus-testnet.walrus.space/v1',
+    MAINNET: 'https://aggregator.walrus.walrus.space/v1',
+  },
 } as const
 

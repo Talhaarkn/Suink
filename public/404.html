@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuiLinkTree</title>
+    <script>
+      // Walrus Sites SPA Routing Handler
+      // Since Walrus doesn't support wildcard routes, we handle all unknown paths here
+      (function() {
+        // Get the current path
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+        
+        // Store the full path in sessionStorage
+        sessionStorage.redirect = path + search + hash;
+        
+        // Redirect to index.html
+        window.location.replace('/index.html');
+      })();
+    </script>
+  </head>
+  <body>
+    <div style="text-align: center; padding: 50px; font-family: system-ui;">
+      <h1>Redirecting...</h1>
+      <p>Loading your profile...</p>
+    </div>
+  </body>
+</html>

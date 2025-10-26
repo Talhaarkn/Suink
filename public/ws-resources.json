@@ -1,0 +1,9 @@
+{
+  "routes": {
+    "/": "/index.html",
+    "/profile": "/index.html",
+    "/view/*": "/index.html",
+    "/0x*": "/index.html",
+    "/*": "/404.html"
+  }
+}

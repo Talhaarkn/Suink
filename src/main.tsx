@@ -34,6 +34,10 @@ function RegisterEnokiWallets() {
       providers: {
         google: {
           clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID || '665551195395-qu5pu13dkt5lj3oh0g12u28tks711p3o.apps.googleusercontent.com',
+          // Force account selection on every login
+          extraParams: {
+            prompt: 'select_account',
+          },
         },
       },
       client: client as any,
@@ -50,8 +54,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
-        <RegisterEnokiWallets />
         <WalletProvider autoConnect>
+          <RegisterEnokiWallets />
           <BrowserRouter>
             <App />
           </BrowserRouter>

@@ -1,8 +1,8 @@
 {
-  "name": "sui-kahoot-quiz",
+  "name": "suink",
   "version": "1.0.0",
-  "type": "commonjs",
-  "description": "A Sui-based Kahoot-style quiz dApp with SBT rewards",
+  "type": "module",
+  "description": "SuiNK - Decentralized LinkTree on Sui blockchain with Walrus storage",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -12,24 +12,25 @@
     "move:build": "sui move build",
     "move:test": "sui move test",
     "move:publish": "sui move publish",
-    "deploy:vercel": "vercel --prod",
-    "deploy:github": "gh-pages -d dist",
-    "deploy:walrus": "echo 'Walrus deployment requires site-builder tool'"
+    "deploy:walrus": "site-builder deploy ./dist --epochs 1",
+    "walrus:proxy": "node walrus-proxy-server.js",
+    "enoki:backend": "node enoki-backend-server.js"
   },
   "dependencies": {
     "@mysten/dapp-kit": "0.16.4",
     "@mysten/enoki": "^0.12.1",
-    "@mysten/seal": "^0.8.0",
-    "@mysten/sui": "^1.38.0",
-    "@mysten/walrus": "^0.7.0",
+    "@mysten/sui": "^1.43.1",
+    "@mysten/walrus": "^0.7.5",
     "@mysten/zklogin": "^0.8.1",
     "@react-oauth/google": "^0.12.2",
     "@tanstack/react-query": "^5.71.3",
     "autoprefixer": "^10.4.14",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "lucide-react": "^0.263.1",
+    "multer": "^2.0.2",
     "postcss": "^8.4.24",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -47,12 +48,13 @@
   "keywords": [
     "sui",
     "blockchain",
-    "quiz",
-    "kahoot",
+    "linktree",
+    "walrus",
     "dapp",
-    "sbt",
-    "zklogin"
+    "decentralized",
+    "zklogin",
+    "suins"
   ],
-  "author": "Sui Kahoot Team",
+  "author": "SuiLinkTree Team",
   "license": "MIT"
 }

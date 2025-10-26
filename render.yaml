@@ -1,0 +1,34 @@
+services:
+  # Walrus Proxy Service
+  - type: web
+    name: suiknow-walrus-proxy
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: node walrus-proxy-server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: WALRUS_PROXY_PORT
+        fromGroup: port
+      - key: NODE_VERSION
+        value: 18.20.8
+    
+  # Enoki Backend Service
+  - type: web
+    name: suiknow-enoki-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: node enoki-backend-server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromGroup: port
+      - key: ENOKI_PRIVATE_KEY
+        sync: false
+      - key: NODE_VERSION
+        value: 18.20.8

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Plus, Home, User, BarChart3, Shield, Database } from 'lucide-react'
+import { Home, User } from 'lucide-react'
 import { ConnectButton } from '@mysten/dapp-kit'
 
 export function Navbar() {
@@ -7,11 +7,7 @@ export function Navbar() {
 
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
-    { path: '/create', label: 'Create Quiz', icon: Plus },
-    { path: '/leaderboard', label: 'Leaderboard', icon: BarChart3 },
-    { path: '/profile', label: 'Profile', icon: User },
-    { path: '/seal-test', label: 'Seal Test', icon: Shield },
-    { path: '/walrus-test', label: 'Walrus Test', icon: Database },
+    { path: '/profile', label: 'My Profiles', icon: User },
   ]
 
   return (
@@ -20,15 +16,9 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg overflow-hidden">
-              <img 
-                src="/logo.png" 
-                alt="SuiKnow Logo" 
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <div className="text-3xl">🔗</div>
             <span className="text-xl font-bold text-white text-shadow">
-              SuiKnow
+              SuiNK
             </span>
           </Link>
 

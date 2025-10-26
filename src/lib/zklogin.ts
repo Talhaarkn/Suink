@@ -7,8 +7,9 @@ import {
   type ZkLoginSignatureInputs
 } from '@mysten/sui/zklogin'
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519'
-import { TransactionBlock } from '@mysten/sui/transactions'
+import { Transaction } from '@mysten/sui/transactions'
 import { SuiClient } from '@mysten/sui/client'
+import { useState, useEffect } from 'react'
 
 // zkLogin configuration
 export const ZKLOGIN_CONFIG = {
@@ -117,7 +118,7 @@ export class ZkLoginAuth {
   }
 
   // Step 4: Create zkLogin signature for transactions
-  async createZkLoginSignature(transactionBlock: TransactionBlock) {
+  async createZkLoginSignature(transactionBlock: Transaction) {
     if (!this.jwt || !this.ephemeralKeyPair || !this.randomness || !this.userSalt) {
       throw new Error('zkLogin not properly initialized')
     }
@@ -218,7 +219,7 @@ export function useZkLogin() {
     setUserInfo(null)
   }
 
-  const signTransaction = async (transactionBlock: TransactionBlock) => {
+  const signTransaction = async (transactionBlock: Transaction) => {
     if (!isAuthenticated) {
       throw new Error('User not authenticated')
     }
@@ -242,7 +243,3 @@ export function useZkLogin() {
     signTransaction,
   }
 }
-
-// Import useState and useEffect for the hook
-import { useState, useEffect } from 'react'
-

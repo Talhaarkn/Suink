@@ -1,0 +1,7 @@
+{
+  "routes": {
+    "/": "/index.html",
+    "/profile": "/index.html",
+    "/view/*": "/index.html"
+  }
+}

@@ -1,11 +1,12 @@
 import { SuiClient } from '@mysten/sui/client'
-import { TransactionBlock } from '@mysten/sui/transactions'
+import { Transaction } from '@mysten/sui/transactions'
+import { useState } from 'react'
 
 // Walrus Protocol configuration
 export const WALRUS_CONFIG = {
   // Walrus API configuration
-  WALRUS_API_URL: process.env.REACT_APP_WALRUS_API_URL || 'https://api.wal.app',
-  WALRUS_API_KEY: process.env.REACT_APP_WALRUS_API_KEY || 'your-walrus-api-key',
+  WALRUS_API_URL: import.meta.env.VITE_WALRUS_API_URL || 'https://api.wal.app',
+  WALRUS_API_KEY: import.meta.env.VITE_WALRUS_API_KEY || 'your-walrus-api-key',
   
   // Walrus protocol settings
   DEFAULT_TIMEOUT: 30000, // 30 seconds
@@ -18,7 +19,7 @@ export class WalrusProtocolService {
 
   constructor() {
     this.client = new SuiClient({
-      url: process.env.REACT_APP_SUI_RPC_URL || 'https://fullnode.testnet.sui.io:443'
+      url: import.meta.env.VITE_SUI_RPC_URL || 'https://fullnode.testnet.sui.io:443'
     })
   }
 
@@ -50,7 +51,7 @@ export class WalrusProtocolService {
 
   // Create a seamless transaction (auto-handles gas, signing, etc.)
   async createSeamlessTransaction(
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     userAddress: string,
     options?: {
       autoGas?: boolean
@@ -126,7 +127,7 @@ export class WalrusProtocolService {
 
   // Create a batch transaction (multiple operations in one tx)
   async createBatchTransaction(
-    transactions: TransactionBlock[],
+    transactions: Transaction[],
     userAddress: string
   ) {
     try {
@@ -160,7 +161,7 @@ export class WalrusProtocolService {
 
   // Create a conditional transaction (executes based on conditions)
   async createConditionalTransaction(
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     conditions: Array<{
       type: 'quiz_completion' | 'score_threshold' | 'time_elapsed'
       value: any
@@ -221,7 +222,7 @@ export class WalrusProtocolService {
 
   // Create a smart transaction (auto-optimizes based on user behavior)
   async createSmartTransaction(
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     userAddress: string,
     context?: {
       userHistory?: any
@@ -257,7 +258,7 @@ export class WalrusProtocolService {
 
   // Create a social transaction (involves multiple users)
   async createSocialTransaction(
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     participants: string[],
     socialContext: {
       type: 'collaborative_quiz' | 'team_competition' | 'group_learning'
@@ -317,7 +318,7 @@ export function useWalrusProtocol() {
   }
 
   const createSeamlessTransaction = async (
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     userAddress: string,
     options?: any
   ) => {
@@ -359,7 +360,7 @@ export function useWalrusProtocol() {
   }
 
   const createBatchTransaction = async (
-    transactions: TransactionBlock[],
+    transactions: Transaction[],
     userAddress: string
   ) => {
     setLoading(true)
@@ -378,7 +379,7 @@ export function useWalrusProtocol() {
   }
 
   const createConditionalTransaction = async (
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     conditions: Array<{
       type: 'quiz_completion' | 'score_threshold' | 'time_elapsed'
       value: any
@@ -413,7 +414,7 @@ export function useWalrusProtocol() {
   }
 
   const createSmartTransaction = async (
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     userAddress: string,
     context?: any
   ) => {
@@ -433,7 +434,7 @@ export function useWalrusProtocol() {
   }
 
   const createSocialTransaction = async (
-    transactionBlock: TransactionBlock,
+    transactionBlock: Transaction,
     participants: string[],
     socialContext: {
       type: 'collaborative_quiz' | 'team_competition' | 'group_learning'
@@ -469,7 +470,3 @@ export function useWalrusProtocol() {
     createSocialTransaction,
   }
 }
-
-// Import useState for the hook
-import { useState } from 'react'
-
