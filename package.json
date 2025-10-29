@@ -12,7 +12,7 @@
     "move:build": "sui move build",
     "move:test": "sui move test",
     "move:publish": "sui move publish",
-    "deploy:walrus": "site-builder deploy ./dist --epochs 1",
+    "deploy:walrus": ".\\site-builder.exe --config site-builder-config.yaml publish --epochs 10 dist/",
     "walrus:proxy": "node walrus-proxy-server.js",
     "enoki:backend": "node enoki-backend-server.js"
   },
