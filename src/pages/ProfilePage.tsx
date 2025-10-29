@@ -19,8 +19,9 @@ interface Profile {
   theme: string
 }
 
-const PACKAGE_ID = import.meta.env.VITE_LINKTREE_PACKAGE_ID
-const REGISTRY_ID = import.meta.env.VITE_REGISTRY_ID
+// Fallback to Package ID if LINKTREE_PACKAGE_ID is not set
+const PACKAGE_ID = import.meta.env.VITE_LINKTREE_PACKAGE_ID || import.meta.env.VITE_PACKAGE_ID
+const REGISTRY_ID = import.meta.env.VITE_REGISTRY_ID || '0x0000000000000000000000000000000000000000000000000000000000000000'
 
 const THEMES = [
   { name: 'Ocean', value: 'ocean', gradient: 'from-blue-500 to-cyan-500' },
@@ -86,10 +87,20 @@ export function ProfilePage() {
     
     try {
       setLoading(true)
+      // Check if PACKAGE_ID is properly set
+      if (!PACKAGE_ID || PACKAGE_ID === '0x0') {
+        console.warn('⚠️ PACKAGE_ID not set. Please deploy the contract first.')
+        return
+      }
+
       const ownedCaps = await suiClient.getOwnedObjects({
         owner: account.address,
         filter: {
-          StructType: `${PACKAGE_ID}::linktree::ProfileCap`
+          MatchAll: [
+            {
+              StructType: `${PACKAGE_ID}::linktree::ProfileCap`
+            }
+          ]
         },
         options: {
           showContent: true,
@@ -138,14 +149,15 @@ export function ProfilePage() {
     }
   }
 
-  const handleCreateProfile = async () => {
+  const handleCreateProfile = () => {
     if (!account || !profileForm.name) {
       alert('Please fill in profile name')
       return
     }
 
+    setLoading(true)
+    
     try {
-      setLoading(true)
       
       // Wallet avatar kullan - Walrus yüklemesi yok artık!
       const avatarCid = walletAvatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${account.address}`
@@ -153,6 +165,12 @@ export function ProfilePage() {
 
       const tx = new Transaction()
       
+      // Check if REGISTRY_ID is valid
+      if (!REGISTRY_ID || REGISTRY_ID === '0x0000000000000000000000000000000000000000000000000000000000000000') {
+        alert('⚠️ Contract not deployed yet. Please deploy the LinkTree contract first.')
+        return
+      }
+
       tx.moveCall({
         target: `${PACKAGE_ID}::linktree::create_profile`,
         arguments: [
@@ -164,12 +182,32 @@ export function ProfilePage() {
         ],
       })
 
-      // Sponsored transaction kullan (gas ödemeden)
+      // NORMAL TRANSACTION (User pays gas)
+      console.log('💰 Creating profile with normal transaction...')
+      
+      signAndExecute(
+        { transaction: tx as any },
+        {
+          onSuccess: (result) => {
+            console.log('✅ Profile created:', result)
+            alert('🎉 Profile NFT created successfully!')
+            setProfileForm({ name: '', bio: '', theme: 'ocean', avatar: null })
+            loadUserProfile()
+          },
+          onError: (error) => {
+            console.error('❌ Transaction failed:', error)
+            alert('Failed to create profile: ' + (error.message || error))
+          },
+        }
+      )
+      
+      /* 
+      // SPONSORED TRANSACTION (Enoki pays gas fees!)
+      // Uncomment this section if you have a valid Enoki private key
+      
       console.log('💰 Creating profile with sponsored transaction...')
       
-      // signTransaction callback oluştur - bytes'ı doğrudan imzala
       const signTxCallback = async (bytes: Uint8Array) => {
-        // Bytes'ı Transaction'a çevir ve imzala
         const txToSign = Transaction.from(bytes)
         const result = await signTransaction({
           transaction: txToSign as any,
@@ -190,6 +228,7 @@ export function ProfilePage() {
       alert('🎉 Profile NFT created successfully (no gas fees)!')
       setProfileForm({ name: '', bio: '', theme: 'ocean', avatar: null })
       loadUserProfile()
+      */
     } catch (error: any) {
       console.error('Error creating profile:', error)
       alert('Failed to create profile: ' + (error.message || error))
